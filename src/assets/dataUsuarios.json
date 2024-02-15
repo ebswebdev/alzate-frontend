@@ -1,0 +1,65 @@
+[
+    {
+        "nombre":"Juan Alzate",
+        "cedula": "1029902302",
+        "correo":"juan.alzate@ucr.ac.cr",
+        "telefono":"31654327654",
+        "direccion": "calle 56 #34 23",
+        "abogado":"2736920",
+        "rol":"usuario"
+    },
+    {
+        "nombre":"Jose",
+        "cedula": "1029902302",
+        "correo":"juan@ucr.ac.cr",
+        "telefono":"31654327654",
+        "direccion": "calle 56 #34 23",
+        "abogado":"190803709",
+        "rol":"usuario"
+    },
+    {
+        "nombre":"Adan",
+        "cedula": "1029902302",
+        "correo":"juan.alzate@ucr.ac.cr",
+        "telefono":"31654327654",
+        "direccion": "calle 56 #34 23",
+        "abogado":"190803709",
+        "rol":"usuario"
+    },
+    {
+        "nombre":"Pablo",
+        "cedula": "10299302",
+        "correo":"juan.alzate@ucr.ac.cr",
+        "telefono":"31654327654",
+        "direccion": "calle 56 #34 23",
+        "abogado":"2736920",
+        "rol":"usuario"
+    },
+    {
+        "nombre":"Juan Alzate",
+        "cedula": "1029902302",
+        "correo":"juan.alzate@ucr.ac.cr",
+        "telefono":"31654327654",
+        "direccion": "calle 56 #34 23",
+        "abogado":"190803709",
+        "rol":"usuario"
+    }, 
+    {
+        "nombre":"Juanito",
+        "cedula": "129902302",
+        "correo":"juan.alzate@ucr.ac.cr",
+        "telefono":"31654327654",
+        "direccion": "calle 56 #34 23",
+        "abogado":"190803709",
+        "rol":"usuario"
+    }, 
+    {
+        "nombre":"Otro",
+        "cedula": "1089902302",
+        "correo":"juan.alzate@ucr.ac.cr",
+        "telefono":"31654327654",
+        "direccion": "calle 56 #34 23",
+        "abogado":"190803709",
+        "rol":"usuario"
+    }
+]

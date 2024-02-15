@@ -1,0 +1,16 @@
+[
+    {
+        "nombre":"Pepe",
+        "cedula": "2736920",
+        "correo":"juan.alzate@ucr.ac.cr",
+        "telefono":"31654327654",
+        "rol":"abogado"
+    },
+    {
+        "nombre":"Maria del Pilar",
+        "cedula": "190803709",
+        "correo":"juan.alzate@ucr.ac.cr",
+        "telefono":"31654327654",
+        "rol":"abogado"
+    }
+]
