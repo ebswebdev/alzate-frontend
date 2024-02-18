@@ -29,7 +29,7 @@ export class UsuariosComponent implements OnInit {
   constructor(private userService:UsuariosService) {  }
 
   ngOnInit(): void {
-    this.Usuarios = this.userService.getUsuariosList();
+    this.Usuarios = this.userService.getUsuariosList();    
   }
 
   showClear() {
@@ -38,8 +38,6 @@ export class UsuariosComponent implements OnInit {
 
   clearInput(){
     this.filterUser='';
-    console.log("limpio");
-    
   }
  
 

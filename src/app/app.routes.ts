@@ -4,13 +4,17 @@ import { UserComponent } from './components/pages/user/user.component';
 import { HeaderComponent } from './components/partial/header/header.component';
 import { UsuariosComponent } from './components/pages/usuarios/usuarios.component';
 import { LoginComponent } from './components/pages/login/login.component';
+import { RegisterComponent } from './components/pages/register/register.component';
+import { AbogadosComponent } from './components/pages/abogados/abogados.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
     { path: 'usuario/:user', component: UserComponent },
     {path: 'usuarios', component:UsuariosComponent},
-    {path: 'login', component:LoginComponent} 
+    {path: 'login', component:LoginComponent},
+    {path: 'agregar-usuario', component:RegisterComponent},
+    {path: 'abogados',component:AbogadosComponent}
 ];
 
 

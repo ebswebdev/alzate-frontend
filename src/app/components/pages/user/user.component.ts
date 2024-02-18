@@ -23,14 +23,12 @@ export class UserComponent implements OnInit{
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      // `params` es un objeto que contiene los parámetros de la URL
-      console.log(params);
-  
-      // Accede a un parámetro específico por su nombre
       this.cedula = params['user'];
     });
 
     this.Usuario = this.userService.getUsuarioId(this.cedula);
+    console.log("usuario",this.Usuario);
+    
   }
 
 }

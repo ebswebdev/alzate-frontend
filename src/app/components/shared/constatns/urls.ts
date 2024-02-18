@@ -5,3 +5,6 @@ export const USERS_TAGS_URL = USERS_URL + '/tags';
 export const USERS_BY_SEARCH_URL = USERS_URL + '/search/';
 export const USERS_BY_TAG_URL = USERS_URL + '/tag/';
 export const USER_BY_ID_URL = USERS_URL + '/';
+
+export const USER_LOGIN_URL = USERS_URL + '/login'
+export const USER_REGISTER_URL = USERS_URL + '/register'

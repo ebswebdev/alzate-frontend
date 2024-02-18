@@ -15,6 +15,12 @@ export class UsuariosService {
     return this.http.get(USERS_URL);
   }
   getUsuarioId(ced:string):Observable<User>{
+    console.log("ruta",USER_BY_ID_URL+ced);
+    
     return this.http.get<User>(USER_BY_ID_URL+ced);
+  }
+
+  getAbogados():Observable<any>{
+    return this.http.get(USER_BY_ID_URL+'abogados');
   }
 }
