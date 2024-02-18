@@ -1,0 +1,14 @@
+[
+    {
+        "numero":"908038508093",
+        "demanda":"Alimentos",
+        "demandado":"estado",
+        "usuario":"129902302",
+        "proceso":[
+            {
+                "fecha":"03-02-2024",
+                "descripcion":"se anota la fecha de la proxima cita"
+            }
+        ]
+    }
+]

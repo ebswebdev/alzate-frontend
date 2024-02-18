@@ -1,0 +1,50 @@
+<app-header></app-header>
+
+<section class="bg-gray-50 dark:bg-gray-900">
+    <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 ">
+        <a href="#" class="flex items-center p-3 rounded-lg mb-6 text-2xl font-semibold bg-[#041316] dark:text-white">
+            <img class="h-8 mr-2" src="/assets/images/logo.png" alt="logo">
+        </a>
+        <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+            <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                <h1 class="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                    Ingresa a nuestra APP
+                </h1>
+                <div class="container">
+                    <div class="details">
+                
+                
+                        <form [formGroup]="loginForm" (ngSubmit)="submit()">
+                            <div class="input-container">
+                                <label>Correo</label>
+                                <div>
+                                    <input type="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-[#041316] focus:border-[#041316]" placeholder="Email" formControlName="email" />
+                                </div>
+                                <div class="text-red-600" *ngIf="fc['email'].errors && isSubmitted">
+                                    <div *ngIf="fc['email'].errors['required']">El correo no puede ser vacío</div>
+                                    <div *ngIf="fc['email'].errors['email']">Email incorrecto</div>
+                                </div>
+                            </div>
+                
+                            <div class="input-container">
+                                <label>Contraseña</label>
+                                <div>
+                                    <input type="password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-[#041316] focus:border-[#041316]" placeholder="Password" formControlName="password" />
+                                </div>
+                                <div class="text-red-600" *ngIf="fc['password'].errors && isSubmitted">
+                                    <div *ngIf="fc['password'].errors['required']">la contraseña no puede ser vacia</div>
+                                </div>
+                            </div>
+                
+                            <div class="button text-end">
+                                <button class="bg-[#041316] text-white px-6 py-3 mt-3 ml-auto rounded-lg" type="submit">Login</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+
+<app-footer></app-footer>

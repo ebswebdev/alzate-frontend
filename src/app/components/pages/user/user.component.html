@@ -1,2 +1,50 @@
-<p>user works!</p>
+<app-header></app-header>
 
+@if(Usuario | async ; as usuario){
+<h1 class="font-bold text-xl mb-2 text-center my-5">{{usuario.nombre}}</h1>
+}
+<div class="user-list grid md:grid-cols-2 gap-5">
+    @if(Usuario | async ; as usuario){
+    <div class="shadow-lg m-3 bg-slate-400/75 rounded-lg p-2">
+        <div class="max-w-sm rounded-lg overflow-hidden  ml-auto">
+            <div class="">
+                <p class="my-1"><b class="mr-2">cedula:</b>{{usuario.cedula}} </p>
+                <p class="my-1"><b class="mr-2">telefono:</b>{{usuario.telefono}} </p>
+                <p class="my-1"><b class="mr-2">correo:</b>{{usuario.correo}} </p>
+                <p class="my-1"><b class="mr-2">direccion:</b>{{usuario.direccion}} </p>
+                <p class="my-1"><b class="mr-2">abogado:</b>{{usuario.abogado}} </p>
+            </div>
+        </div>
+    </div>
+    }
+    <div class="shadow-lg m-3 bg-slate-400/75 rounded-lg p-2">
+        <div class="max-w-sm rounded-lg overflow-hidden  m-auto">
+            <p class="my-1"><b class="mr-2">Radicados</b> </p>
+            <div class="flex flex-col items-start justify-between gap-2 ">
+                <a
+                    class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                    <span class="mr-2">Radicados 1 </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48">
+                        <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"
+                            d="M19 12L31 24L19 36" />
+                    </svg>
+                </a>
+                <a
+                    class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                    <span class="mr-2">Radicados 2 </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48">
+                        <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"
+                            d="M19 12L31 24L19 36" />
+                    </svg>
+                </a>
+                <a
+                    class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                    <span class="mr-2">Radicados 3 </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48">
+                        <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"
+                            d="M19 12L31 24L19 36" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
