@@ -1,5 +1,13 @@
 <app-header></app-header>
 
+
+<div class="container">
+  <div class="my-5 text-right">
+    <a routerLink="/agregar-usuario" class="text-sm uppercase font-bold leading-6 text-[#fff] bg-[#046169] p-3 rounded-lg">Agregar
+      Usuario</a>
+  </div>
+</div>
+
 <div class="my-5">
     <form class="flex items-center max-w-sm mx-auto">   
       <label for="simple-search" class="sr-only">Buscar</label>
@@ -15,14 +23,14 @@
     </form>
   </div>
 
-<ul class="user-list grid md:grid-cols-3 gap-5">
+<ul class="user-list grid md:grid-cols-3 gap-5 container mx-auto mb-12">
     <!--@for(user of Usuarios;track user.cedula){ -->
       @if(Usuarios | async ; as Usuarios){
-        <li *ngFor="let user of Usuarios | filter:filterUser" class="shadow-lg m-3 bg-slate-400/75 rounded-lg p-2">
+        <li *ngFor="let user of Usuarios | filter:filterUser" class="shadow-lg m-3 z-20 bg-[#ededed] rounded-lg p-2">
       
           <div class="max-w-sm rounded-lg overflow-hidden  m-auto">
             <div class="px-6 pt-4">
-              <div class="font-bold text-xl mb-2">{{user.nombre}}</div>
+              <div class="font-bold text-xl mb-2 text-[#043e49]">{{user.nombre}}</div>
             </div>
             <div class="">
               <p class="my-1"><b class="mr-2">cedula:</b>{{user.cedula}} </p>

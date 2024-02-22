@@ -1,50 +1,91 @@
 <app-header></app-header>
 
 @if(Usuario | async ; as usuario){
-<h1 class="font-bold text-xl mb-2 text-center my-5">{{usuario.nombre}}</h1>
+<h1 class="font-bold text-2xl mb-2 text-[#043e49] text-center my-5">{{usuario.nombre}}</h1>
+<div class="m-3 rounded-lg p-2">
+    <div class=" bg-[#ededed] p-2 max-w-max rounded-lg overflow-hidden mx-auto text-center">
+        <div class="">
+            <p class="my-1">
+                <b class="ml-3 mr-1">cedula:</b>{{usuario.cedula}}
+                <b class="ml-3 mr-1">telefono:</b>{{usuario.telefono}}
+                <b class="ml-3 mr-1">correo:</b>{{usuario.correo}}
+                <b class="ml-3 mr-1">direccion:</b>{{usuario.direccion}}
+                <b class="ml-3 mr-1">abogado:</b>{{usuario.abogado}}
+            </p>
+        </div>
+    </div>
+</div>
 }
-<div class="user-list grid md:grid-cols-2 gap-5">
-    @if(Usuario | async ; as usuario){
-    <div class="shadow-lg m-3 bg-slate-400/75 rounded-lg p-2">
-        <div class="max-w-sm rounded-lg overflow-hidden  ml-auto">
-            <div class="">
-                <p class="my-1"><b class="mr-2">cedula:</b>{{usuario.cedula}} </p>
-                <p class="my-1"><b class="mr-2">telefono:</b>{{usuario.telefono}} </p>
-                <p class="my-1"><b class="mr-2">correo:</b>{{usuario.correo}} </p>
-                <p class="my-1"><b class="mr-2">direccion:</b>{{usuario.direccion}} </p>
-                <p class="my-1"><b class="mr-2">abogado:</b>{{usuario.abogado}} </p>
+@if( Radicados$ | async ; as radicados){
+<div class="grid grid-cols-3 gap-5 my-8 container mx-auto z-20 relative">
+    <div class="shadow-lg m-3 rounded-lg p-2">
+        <h2 class="text-center font-bold mb-5">Radicados</h2>
+        <div class="rounded-lg overflow-hidden mx-auto mb-3">
+            <ul class="">
+                <li *ngFor="let radicad of radicados" class=" my-3">
+                    <a type="button" (click)="getRadicado(radicad.numero)" 
+                    [ngStyle]="{'background-color':radicado&&radicado.numero==radicad.numero?'#90c259':'#ededed'}"
+                        class="bg-slate-400/75 w-full hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex justify-between items-center cursor-pointer">
+                        <span class="mr-2" > {{radicad.numero}}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48">
+                            <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="4" d="M19 12L31 24L19 36" />
+                        </svg>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+        <a href="#" class="text-sm uppercase font-bold leading-6 text-[#fff] bg-[#046169] p-3 rounded-lg">Agregar Radicado</a>
+    </div>
+    @if( radicado){
+        <div class="shadow-lg m-3 rounded-lg p-3"  [ngStyle]="{'background-color':radicado.estado=='activo'?'#eeffdb':'#ffd3d3'}">
+            <h2 class="text-center font-bold mb-5">Observaciones</h2>
+            <p><b>numero: </b>{{radicado.numero}}</p>
+            <p><b>demanda: </b>{{radicado.demanda}}</p>
+            <p><b>demandado: </b>{{radicado.demandado}}</p>
+            <p><b>estado: </b>{{radicado.estado}}</p>
+            <p><b>Proceso:</b></p>
+            <div>
+                <span><b>Fecha:</b>12-08-2023</span>
+                <p>
+                    Cita en el juzgado
+                </p>
+            </div>
+            <hr>
+            <div>
+                <span><b>Fecha:</b>12-08-2023</span>
+                <p>
+                    Cita en el juzgado del centro
+                </p>
             </div>
         </div>
-    </div>
     }
-    <div class="shadow-lg m-3 bg-slate-400/75 rounded-lg p-2">
-        <div class="max-w-sm rounded-lg overflow-hidden  m-auto">
-            <p class="my-1"><b class="mr-2">Radicados</b> </p>
-            <div class="flex flex-col items-start justify-between gap-2 ">
-                <a
-                    class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-                    <span class="mr-2">Radicados 1 </span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48">
-                        <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"
-                            d="M19 12L31 24L19 36" />
-                    </svg>
-                </a>
-                <a
-                    class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-                    <span class="mr-2">Radicados 2 </span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48">
-                        <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"
-                            d="M19 12L31 24L19 36" />
-                    </svg>
-                </a>
-                <a
-                    class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-                    <span class="mr-2">Radicados 3 </span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48">
-                        <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"
-                            d="M19 12L31 24L19 36" />
-                    </svg>
-                </a>
+
+    <div class="flex m-3 flex-col gap-3 shadow-lg p-3">
+        <h2 class="text-center font-bold mb-5">Agregar proceso</h2>
+        <form >
+            <div class="relative z-0 w-full mb-5 group">
+                <input type="date" formControlName="fecha" name="fecha" id="fecha"
+                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-[#074740] focus:outline-none focus:ring-0 focus:border-[#074740] peer"
+                    placeholder=" " required />
+                <label for="fecha"
+                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-[#074740] peer-focus:dark:text-[#074740] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                    Fecha:</label>
             </div>
-        </div>
+
+            <div class="relative z-0 w-full mb-5 group">
+                <label for="fecha"
+                    class="peer-focus:font-medium text-sm text-gray-500 dark:text-gray-400 ">
+                    Observaciones</label>
+                
+            </div>
+            <div class="button text-end">
+                <button class="bg-[#041316] text-white px-6 py-3 ml-auto rounded-lg" type="submit">Guardar</button>
+            </div>
+        </form>
     </div>
+</div>
+}
+
+<app-footer></app-footer>

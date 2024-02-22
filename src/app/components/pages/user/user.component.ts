@@ -4,13 +4,15 @@ import { ActivatedRoute } from '@angular/router';
 import { HeaderComponent } from '../../partial/header/header.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { UsuariosService } from '../../../services/usuarios.service';
-import { Observable } from 'rxjs';
+import { Observable, first } from 'rxjs';
 import { User } from '../../shared/models/User';
-
+import { Radicado } from '../../shared/models/Radicado';
+import { RadicadosService } from '../../../services/radicados.service';
+import { FooterComponent } from '../../partial/footer/footer.component';
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, HttpClientModule],
+  imports: [CommonModule, HeaderComponent, HttpClientModule, FooterComponent],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css'
 })
@@ -19,16 +21,36 @@ export class UserComponent implements OnInit{
   public Usuario!:Observable<User>;
   public cedula:string = '';
 
-  constructor(private userService:UsuariosService, private route:ActivatedRoute) { }
+  public Radicados$!:Observable<Radicado[]> ;
+
+  public radicado!:Radicado;
+
+  constructor(private userService:UsuariosService, private route:ActivatedRoute, private radicadosService:RadicadosService) {
+    
+   }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.cedula = params['user'];
     });
 
-    this.Usuario = this.userService.getUsuarioId(this.cedula);
-    console.log("usuario",this.Usuario);
-    
+    this.Usuario = this.userService.getUsuarioId(this.cedula);  
+    this.Radicados$ = this.radicadosService.getRadicadosByUser(this.cedula);
+    this.Radicados$.subscribe(
+      radicado => {
+        this.radicado = radicado[0];
+      },
+      error => {
+        // Maneja cualquier error que ocurra durante la suscripción al observable
+        console.error('Error al obtener el primer radicado:', error);
+      }
+    );
   }
 
+  getRadicado(radicado:string){
+
+    this.Radicados$.subscribe(radicados => {
+      this.radicado = radicados.filter(r=> r.numero === radicado)[0]
+    });
+  }
 }

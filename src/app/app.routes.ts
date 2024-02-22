@@ -6,10 +6,11 @@ import { UsuariosComponent } from './components/pages/usuarios/usuarios.componen
 import { LoginComponent } from './components/pages/login/login.component';
 import { RegisterComponent } from './components/pages/register/register.component';
 import { AbogadosComponent } from './components/pages/abogados/abogados.component';
+import { CalculosComponent } from './components/pages/calculos/calculos.component';
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'home', pathMatch: 'full' },
-    { path: 'home', component: HomeComponent },
+    { path: '', redirectTo: 'calculos', pathMatch: 'full' },
+    { path: 'calculos', component: CalculosComponent },
     { path: 'usuario/:user', component: UserComponent },
     {path: 'usuarios', component:UsuariosComponent},
     {path: 'login', component:LoginComponent},
