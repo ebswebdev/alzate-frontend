@@ -1,13 +1,13 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { UserComponent } from '../user/user.component';
 import { CalendarComponent } from '../../partial/calendar/calendar.component';
 import { FormsModule, NgModel } from '@angular/forms';
 import { FilterPipe } from '../../filtros/filter.pipe';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../partial/header/header.component';
 import { FooterComponent } from '../../partial/footer/footer.component';
+import { UserComponent } from '../user/user.component';
 
 @Component({
   selector: 'app-home',
