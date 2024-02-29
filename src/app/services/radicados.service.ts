@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Radicado } from '../components/shared/models/Radicado';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { IAddRadicado, Radicado } from '../components/shared/models/Radicado';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
-import { RADICADOS_URL, RADICADO_BY_USER_URL } from '../components/shared/constatns/urls';
+import { RADICADOS_URL, RADICADO_ADD_URL, RADICADO_BY_USER_URL } from '../components/shared/constatns/urls';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +23,25 @@ export class RadicadosService {
 
   getRadicadosByNumero(numero:string):Observable<Radicado>{
     return this.http.get<Radicado>(RADICADO_BY_USER_URL+'id/'+numero);
+  }
+
+  addRadicado(radicadoAdd:IAddRadicado): Observable<Radicado>{
+    return this.http.post<Radicado>(RADICADO_ADD_URL, radicadoAdd).pipe(
+      tap({
+        next: (radicado) => {
+          console.log("radicado", radicado);
+        },
+        error: (errorResponse) => {
+          console.log('Error al registrar')
+          const error = errorResponse.status;
+          if (error === 200){
+            alert('creado con exito');
+          }else{
+            alert(`error ${errorResponse.status}`)
+          }
+        }
+      })
+    )
   }
 
 }

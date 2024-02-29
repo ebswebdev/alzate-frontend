@@ -1,5 +1,8 @@
 <app-header></app-header>
 
+//TODO filtrar el abogado, crear procesos
+
+
 <a routerLink="/usuarios" class="cursor-pointer p-3 w-5 block absolute left-20">
     <svg xmlns="http://www.w3.org/2000/svg" width="32px" height="32px" viewBox="0 0 24 24">
         <g fill="none" fill-rule="evenodd">
@@ -17,63 +20,99 @@
     <div class=" bg-[#ededed] p-2 max-w-max rounded-lg overflow-hidden mx-auto text-center">
         <div class="">
             <p class="my-1">
-                <b class="ml-3 mr-1">cedula:</b>{{usuario.cedula}}
-                <b class="ml-3 mr-1">telefono:</b>{{usuario.telefono}}
-                <b class="ml-3 mr-1">correo:</b>{{usuario.correo}}
-                <b class="ml-3 mr-1">direccion:</b>{{usuario.direccion}}
-                <b class="ml-3 mr-1">abogado:</b>{{usuario.abogado}}
+                <b class="ml-3 mr-1">Cédula:</b>{{usuario.cedula}}
+                <b class="ml-3 mr-1">Teléfono:</b>{{usuario.telefono}}
+                <b class="ml-3 mr-1">Correo:</b>{{usuario.correo}}
+                <b class="ml-3 mr-1">Dirección:</b>{{usuario.direccion}}
+                <b class="ml-3 mr-1">Abogado:</b>{{usuario.abogado}}
             </p>
         </div>
     </div>
 </div>
 }
 @if( Radicados$ | async ; as radicados){
-<div class="grid grid-cols-3 gap-5 my-8 container mx-auto z-20 relative">
+<div class=" gap-5 my-5 container mx-auto z-20 relative">
+
     <div class="shadow-lg m-3 rounded-lg p-2">
-        <h2 class="text-center font-bold mb-5">Radicados</h2>
+        <div class="flex justify-center items-center gap-3">
+            <h2 class="text-center font-bold ">Radicados</h2>
+            <a id="myBtn" (click)="showModal('addRadicadoModal')"
+                class=" has-help absolute right-3 text-sm font-bold leading-6 text-[#046169] border border-[#046169]  px-2 rounded-lg cursor-pointer ">
+                Añadir +
+                <span class="help">
+                    Agregar Radicado
+                </span>
+            </a>
+        </div>
         <div class="rounded-lg overflow-hidden mx-auto mb-3">
-            <ul class="">
-                <li *ngFor="let radicad of radicados" class=" my-3">
-                    <a type="button" (click)="getRadicado(radicad.numero)"
-                        [ngStyle]="{'background-color':radicado&&radicado.numero==radicad.numero?'#90c259':'#ededed'}"
-                        class="bg-slate-400/75 w-full hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex justify-between items-center cursor-pointer">
-                        <span class="mr-2"> {{radicad.numero}}</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48">
-                            <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round"
-                                stroke-width="4" d="M19 12L31 24L19 36" />
-                        </svg>
-                    </a>
+            <ul class=" grid grid-cols-3">
+                <li *ngFor="let radicado of radicados" class=" my-3">
+                    <div class="shadow-lg m-3 rounded-lg p-3 relative"
+                        [ngStyle]="{'background-color':radicado.estado=='activo'?'#ededed':'#ffd3d3'}">
+                        <h2 class="text-center font-bold mb-5">{{radicado.numero}}</h2>
+                        <p><b>demanda: </b>{{radicado.demanda}}</p>
+                        <p><b>demandado: </b>{{radicado.demandado}}</p>
+                        <p><b>estado: </b>{{radicado.estado}}</p>
+                        <p><b>Proceso:</b></p>
+                        <div>
+                            
+                        </div>
+                        <div class="button text-end flex text-sm gap-3 mt-5 justify-end">
+                            <button [ngStyle]="{'display':radicado.estado=='activo'?'block':'none'}"
+                                class=" px-1 py-1  rounded-lg has-help">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24">
+                                    <g fill="#043e49" fill-rule="evenodd" clip-rule="evenodd">
+                                        <path
+                                            d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12m10-8a8 8 0 1 0 0 16a8 8 0 0 0 0-16" />
+                                        <path
+                                            d="M13 7a1 1 0 1 0-2 0v4H7a1 1 0 1 0 0 2h4v4a1 1 0 1 0 2 0v-4h4a1 1 0 1 0 0-2h-4z" />
+                                    </g>
+                                </svg>
+                                <span class="help">
+                                    Agregar Observaciones
+                                </span>
+                            </button>
+                            <button [ngStyle]="{'display':radicado.estado=='activo'?'block':'none'}"
+                                class=" px-1 py-1  rounded-lg has-help">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 28 28">
+                                    <path fill="#043e49"
+                                        d="M19.289 3.15a3.932 3.932 0 1 1 5.56 5.56l-1.54 1.54l-5.56-5.56zm-2.6 2.6L4.502 17.937c-.44.44-.76.986-.928 1.586l-1.547 5.525a.75.75 0 0 0 .924.924l5.524-1.547a3.626 3.626 0 0 0 1.587-.928L22.25 11.311z" />
+                                </svg>
+                                <span class="help">
+                                    Editar
+                                </span>
+                            </button>
+
+                            <button [ngStyle]="{'background-color':radicado.estado=='activo'?'transparent':'gray'}"
+                                class=" px-1 py-1  rounded-lg has-help">
+                                @if(radicado.estado=="activo"){
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px"
+                                    viewBox="-2 -5 24 24">
+                                    <path fill="red"
+                                        d="M7.828 0H18a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H7.828a2 2 0 0 1-1.414-.586L.707 7.707a1 1 0 0 1 0-1.414L6.414.586A2 2 0 0 1 7.828 0m0 12H18V2H7.828l-5 5zm6.586-5l1.414 1.414a1 1 0 0 1-1.414 1.414L13 8.414l-1.414 1.414a1 1 0 1 1-1.414-1.414L11.586 7l-1.414-1.414a1 1 0 1 1 1.414-1.414L13 5.586l1.414-1.414a1 1 0 1 1 1.414 1.414z" />
+                                </svg>
+                                <span class="help">
+                                    Marcar como cerrado
+                                </span>
+                                }@else{
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24">
+                                    <path fill="#043e49"
+                                        d="M12 22q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-3.3 1.925-5.937T9 2.45V4.6q-2.275.925-3.637 2.938T4 12q0 3.35 2.325 5.675T12 20q3.35 0 5.675-2.325T20 12q0-2.45-1.362-4.462T15 4.6V2.45q3.15.975 5.075 3.613T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22m0-6l-5-5l1.4-1.4l2.6 2.575V2h2v10.175L15.6 9.6L17 11z" />
+                                </svg>
+                                <span class="help">
+                                    Marcar como activo
+                                </span>
+                                }
+                            </button>
+                        </div>
+
+                    </div>
                 </li>
 
             </ul>
         </div>
-        <a id="myBtn" (click)="agregarRadicado()"
-            class="text-sm uppercase font-bold leading-6 text-[#fff] bg-[#046169] p-3 rounded-lg">Agregar Radicado</a>
+
     </div>
-    @if( radicado){
-    <div class="shadow-lg m-3 rounded-lg p-3"
-        [ngStyle]="{'background-color':radicado.estado=='activo'?'#eeffdb':'#ffd3d3'}">
-        <h2 class="text-center font-bold mb-5">Observaciones</h2>
-        <p><b>numero: </b>{{radicado.numero}}</p>
-        <p><b>demanda: </b>{{radicado.demanda}}</p>
-        <p><b>demandado: </b>{{radicado.demandado}}</p>
-        <p><b>estado: </b>{{radicado.estado}}</p>
-        <p><b>Proceso:</b></p>
-        <div>
-            <span><b>Fecha:</b>12-08-2023</span>
-            <p>
-                Cita en el juzgado
-            </p>
-        </div>
-        <hr>
-        <div>
-            <span><b>Fecha:</b>12-08-2023</span>
-            <p>
-                Cita en el juzgado del centro
-            </p>
-        </div>
-    </div>
-    }
 
     <div class="flex m-3 flex-col gap-3 shadow-lg p-3">
         <h2 class="text-center font-bold mb-5">Agregar proceso</h2>
@@ -103,34 +142,77 @@
 
 
 <!-- The Modal -->
-<div id="myModal" class="modal">
+<div id="addRadicadoModal" class="modal">
 
     <!-- Modal content -->
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h1 class="mb-5 font-bold">Agrear Radicado</h1>
-        <div>
-            <form>
+    <div class="modal-content rounded-xl">
+        <span class="close" (click)="closeModal('addRadicadoModal')">&times;</span>
+
+        @if(Usuario | async ; as usuario){
+        <h1 class="mb-5 font-semibold">Agrear radicado a <span class="font-bold">{{usuario.nombre}}</span></h1>
+
+        <div class="p-5">
+            <form [formGroup]="addRadicadoForm" (ngSubmit)="submit()">
                 <div class="grid md:grid-cols-2 md:gap-6">
                     <div class="relative z-0 w-full mb-5 group">
-                        <input type="text" formControlName="cedula" name="cedula" id="cedula"
+                        <input type="text" formControlName="numero" name="numero" id="numero"
                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-[#074740] focus:outline-none focus:ring-0 focus:border-[#074740] peer"
                             placeholder=" " required />
-                        <label for="cedula"
+                        <label for="numero"
                             class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-[#074740] peer-focus:dark:text-[#074740] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                            Cédula</label>
+                            Número radicado</label>
                     </div>
                     <div class="relative z-0 w-full mb-5 group">
-                        <input type="text" formControlName="telefono" name="telefono" id="telefono"
+                        <select id="countries" formControlName="estado"
+                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-[#074740] focus:outline-none focus:ring-0 focus:border-[#074740] peer">
+                            <option value="activo" selected>Activo</option>
+                            <option value="cerrado">Cerrado</option>
+                        </select>
+                        <label for="estado"
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-[#074740] peer-focus:dark:text-[#074740] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            Estado</label>
+                    </div>
+
+                </div>
+                <div class="grid md:grid-cols-2 md:gap-6">
+                    <div class="relative z-0 w-full mb-5 group">
+                        <input type="text" formControlName="demanda" name="demanda" id="demanda"
                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-[#074740] focus:outline-none focus:ring-0 focus:border-[#074740] peer"
                             placeholder=" " required />
-                        <label for="telefono"
+                        <label for="demanda"
                             class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-[#074740] peer-focus:dark:text-[#074740] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                            Teléfono Celular</label>
+                            Demanda</label>
                     </div>
+                    <div class="relative z-0 w-full mb-5 group">
+                        <input type="text" formControlName="demandado" name="demandado" id="demandado"
+                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-[#074740] focus:outline-none focus:ring-0 focus:border-[#074740] peer"
+                            placeholder=" " required />
+                        <label for="demandado"
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-[#074740] peer-focus:dark:text-[#074740] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            Demandado</label>
+                    </div>
+                </div>
+                <div class="md:grid-cols-2 md:gap-6 hidden">
+                    <div class="relative z-0 w-full mb-5 group">
+                        <input type="text" formControlName="usuario" name="usuario" id="usuario"
+                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-[#074740] focus:outline-none focus:ring-0 focus:border-[#074740] peer"
+                            placeholder=" " />
+                        <label for="usuario"
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-[#074740] peer-focus:dark:text-[#074740] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            Usuario</label>
+                    </div>
+                </div>
+                <div class="button text-end">
+                    <button class="bg-[#041316] text-white px-6 py-3 mt-3 ml-auto rounded-lg"
+                        type="submit">Guardar</button>
                 </div>
             </form>
         </div>
+        }@else {
+        <p class="text-red">
+            Usuario Invalido
+        </p>
+        }
     </div>
 
 </div>

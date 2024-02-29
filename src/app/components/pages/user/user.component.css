@@ -10,7 +10,7 @@
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    background-color: rgb(0 0 0 / 73%); /* Black w/ opacity */
   }
   
   /* Modal Content */
@@ -19,7 +19,7 @@
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
+    width: 60%;
   }
   
   /* The Close Button */
@@ -35,4 +35,33 @@
     color: #000;
     text-decoration: none;
     cursor: pointer;
+  }
+
+
+
+
+
+  /* codigo para mensaje de ayuda*/
+  .help{
+    color: #000;
+    font-style: italic;
+    display: none;
+    position: absolute;
+    font-size: 14px;
+    bottom: 32px;
+    padding: 3px 7px;
+    background-color: #fff;
+    border: 1px solid #90c259;
+    text-wrap: wrap;
+    border-radius: 8px;
+    font-weight: 500;
+  }
+  .has-help.absolute{
+    position: absolute !important;
+  }
+  .has-help{
+    position: relative;
+  }
+  .has-help:hover  .help{
+    display: block;
   }

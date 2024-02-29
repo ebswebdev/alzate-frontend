@@ -60,7 +60,6 @@ export class RegisterComponent implements OnInit {
   }
   submit() {
     this.isSubmitted = true;
-    console.log("llegra");
     
     if (this.registerForm.invalid) {
       console.log(this.registerForm.value);
