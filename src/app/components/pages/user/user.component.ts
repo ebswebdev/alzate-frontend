@@ -9,7 +9,7 @@ import { User } from '../../shared/models/User';
 import { IAddRadicado, Radicado } from '../../shared/models/Radicado';
 import { RadicadosService } from '../../../services/radicados.service';
 import { FooterComponent } from '../../partial/footer/footer.component';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 @Component({
   selector: 'app-user',
   standalone: true,
@@ -45,13 +45,15 @@ export class UserComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.addRadicadoForm = this.formBuilder.group({
-      numero: ['', [Validators.required]],
-      estado: ['activo', [Validators.required]],
-      demanda: ['', [Validators.required]],
-      demandado: ['', [Validators.required]],
-      usuario: [this.cedula, [Validators.required]],
+    this.addRadicadoForm = new FormGroup({
+      numero: new FormControl(['', [Validators.required]]),
+      estado: new FormControl(['activo', [Validators.required]]),
+      demanda: new FormControl(['', [Validators.required]]),
+      demandado: new FormControl(['', [Validators.required]]),
+      usuario: new FormControl([this.cedula, [Validators.required]]),
     });
+
+
     this.route.params.subscribe((params) => {
       this.cedula = params['user'];
     });

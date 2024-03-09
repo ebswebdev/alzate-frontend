@@ -41,11 +41,12 @@ export class LoginService {
   }
 
   private setUserToLocalStorage(user:User){
+    if(sessionStorage)
     sessionStorage.setItem(USER_KEY, JSON.stringify(user));
   }
 
   private getUserFromLocalStorage():User{
-    const userJson = sessionStorage.getItem(USER_KEY);
+    const userJson = sessionStorage?.getItem(USER_KEY);
     if(userJson) return JSON.parse(userJson) as User;
     return new User();
   }
