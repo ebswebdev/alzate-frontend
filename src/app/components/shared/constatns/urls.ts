@@ -13,3 +13,8 @@ export const USER_REGISTER_URL = USERS_URL + '/register'
 export const RADICADOS_URL = BASE_URL +  '/api/radicados';
 export const RADICADO_BY_USER_URL =  RADICADOS_URL + '/';
 export const RADICADO_ADD_URL =  RADICADOS_URL + '/agregar';
+
+
+export const PROCESOSR_URL = BASE_URL +  '/api/procesosr';
+export const PROCESOR_BY_RADICADO_URL =  PROCESOSR_URL + '/';
+export const PROCESOR_ADD_URL =  PROCESOSR_URL + '/agregar';

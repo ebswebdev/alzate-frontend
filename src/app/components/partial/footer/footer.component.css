@@ -5,6 +5,8 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 0;
+    position: relative;
   }
   .waves {
     position: absolute;
@@ -16,6 +18,7 @@ footer {
     height: 297px;
     width: 100%;
     overflow: hidden;
+    z-index:  -3;
   }
   .wave {
     position: absolute;

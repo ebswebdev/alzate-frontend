@@ -2,3 +2,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+input:required ~ label::after, textarea:required ~ label::after{
+    content: '*';
+    color: red;
+    left: 2px;
+    position: relative;
+  }
+
+button:disabled{
+    background-color: #8f8f8f !important;
+}

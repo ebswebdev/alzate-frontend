@@ -1,6 +1,6 @@
 <app-header></app-header>
 
-<section class="bg-gray-50 dark:bg-gray-900">
+<section class="bg-gray-50 dark:bg-gray-900 relative z-30">
     <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto  lg:py-0 ">
         <a href="#" class="flex items-center p-3 rounded-lg mb-6 text-2xl font-semibold bg-[#041316] dark:text-white">
             <img class="h-8 mr-2" src="/assets/images/logo.png" alt="logo">
@@ -11,8 +11,7 @@
                     Ingresa a nuestra APP
                 </h1>
                 <div class="container">
-                    <div class="details">
-                
+                    <div class="details">                
                 
                         <form [formGroup]="loginForm" (ngSubmit)="submit()">
                             <div class="input-container">

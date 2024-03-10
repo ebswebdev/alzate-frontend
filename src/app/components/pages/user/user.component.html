@@ -30,6 +30,8 @@
     </div>
 </div>
 }
+
+
 @if( Radicados$ | async ; as radicados){
 <div class=" gap-5 my-5 container mx-auto z-20 relative">
 
@@ -53,13 +55,29 @@
                         <p><b>demanda: </b>{{radicado.demanda}}</p>
                         <p><b>demandado: </b>{{radicado.demandado}}</p>
                         <p><b>estado: </b>{{radicado.estado}}</p>
-                        <p><b>Proceso:</b></p>
-                        <div>
-                            
+                        <button (click)="getProcesoR(radicado.numero)"
+                            class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                            ver proceso
+                        </button> <!--
+                        <button (click)="getProces(radicado.numero)"  class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                            ver proceso
+                        </button> -->
+
+                        @if( ProcesosR$ | async ; as procesos){
+                        <div class="proceso" id="{{radicado.numero}}">
+                            <ul>
+                                <li *ngFor="let procesor of procesos | procesosr:radicado.numero" class="mt-3">
+                                    {{procesor.fecha}}
+                                    <br>
+                                    {{procesor.observaciones}}
+                                    <hr>
+                                </li>
+                            </ul>
                         </div>
-                        <div class="button text-end flex text-sm gap-3 mt-5 justify-end">
+                        }
+                        <div class="button text-end flex text-sm gap-3 mt-5 justify-end mr-4">
                             <button [ngStyle]="{'display':radicado.estado=='activo'?'block':'none'}"
-                                class=" px-1 py-1  rounded-lg has-help">
+                                class=" px-1 py-1  rounded-lg has-help" (click)="addProceso('addProcesoModal',radicado)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24">
                                     <g fill="#043e49" fill-rule="evenodd" clip-rule="evenodd">
                                         <path
@@ -86,16 +104,18 @@
                             <button [ngStyle]="{'background-color':radicado.estado=='activo'?'transparent':'gray'}"
                                 class=" px-1 py-1  rounded-lg has-help">
                                 @if(radicado.estado=="activo"){
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px"
-                                    viewBox="-2 -5 24 24">
-                                    <path fill="red"
-                                        d="M7.828 0H18a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H7.828a2 2 0 0 1-1.414-.586L.707 7.707a1 1 0 0 1 0-1.414L6.414.586A2 2 0 0 1 7.828 0m0 12H18V2H7.828l-5 5zm6.586-5l1.414 1.414a1 1 0 0 1-1.414 1.414L13 8.414l-1.414 1.414a1 1 0 1 1-1.414-1.414L11.586 7l-1.414-1.414a1 1 0 1 1 1.414-1.414L13 5.586l1.414-1.414a1 1 0 1 1 1.414 1.414z" />
-                                </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 256 256"><path fill="red" d="M216 48h-36V36a28 28 0 0 0-28-28h-48a28 28 0 0 0-28 28v12H40a12 12 0 0 0 0 24h4v136a20 20 0 0 0 20 20h128a20 20 0 0 0 20-20V72h4a12 12 0 0 0 0-24M100 36a4 4 0 0 1 4-4h48a4 4 0 0 1 4 4v12h-56Zm88 168H68V72h120Zm-72-100v64a12 12 0 0 1-24 0v-64a12 12 0 0 1 24 0m48 0v64a12 12 0 0 1-24 0v-64a12 12 0 0 1 24 0"/></svg>
                                 <span class="help">
                                     Marcar como cerrado
                                 </span>
                                 }@else{
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24"><g fill="none" stroke="#043e49" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 3a9 9 0 1 1-5.657 2"/><path d="M3 4.5h4v4"/></g></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24">
+                                    <g fill="none" stroke="#043e49" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2">
+                                        <path d="M12 3a9 9 0 1 1-5.657 2" />
+                                        <path d="M3 4.5h4v4" />
+                                    </g>
+                                </svg>
                                 <span class="help">
                                     Marcar como activo
                                 </span>
@@ -110,37 +130,12 @@
         </div>
 
     </div>
-
-    <div class="flex m-3 flex-col gap-3 shadow-lg p-3">
-        <h2 class="text-center font-bold mb-5">Agregar proceso</h2>
-        <form>
-            <div class="relative z-0 w-full mb-5 group">
-                <input type="date" formControlName="fecha" name="fecha" id="fecha"
-                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-[#074740] focus:outline-none focus:ring-0 focus:border-[#074740] peer"
-                    placeholder=" " required />
-                <label for="fecha"
-                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-[#074740] peer-focus:dark:text-[#074740] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                    Fecha:</label>
-            </div>
-
-            <div class="relative z-0 w-full mb-5 group">
-                <label for="fecha" class="peer-focus:font-medium text-sm text-gray-500 dark:text-gray-400 ">
-                    Observaciones</label>
-                <textarea name="observaciones" id="" cols="30" rows="4"
-                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-[#074740] focus:outline-none focus:ring-0 focus:border-[#074740] peer"></textarea>
-            </div>
-            <div class="button text-end">
-                <button class="bg-[#041316] text-white px-6 py-3 ml-auto rounded-lg" type="submit">Guardar</button>
-            </div>
-        </form>
-    </div>
 </div>
 }
 
 
 <!-- The Modal -->
 <div id="addRadicadoModal" class="modal">
-
     <!-- Modal content -->
     <div class="modal-content rounded-xl">
         <span class="close" (click)="closeModal('addRadicadoModal')">&times;</span>
@@ -156,17 +151,17 @@
                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-[#074740] focus:outline-none focus:ring-0 focus:border-[#074740] peer"
                             placeholder=" " required />
                         <label for="numero"
-                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-[#074740] peer-focus:dark:text-[#074740] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            class=" peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-[#074740] peer-focus:dark:text-[#074740] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                             Número radicado</label>
                     </div>
                     <div class="relative z-0 w-full mb-5 group">
                         <select id="countries" formControlName="estado"
                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-[#074740] focus:outline-none focus:ring-0 focus:border-[#074740] peer">
-                            <option value="activo" selected>Activo</option>
+                            <option value="activo">Activo</option>
                             <option value="cerrado">Cerrado</option>
                         </select>
                         <label for="estado"
-                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-[#074740] peer-focus:dark:text-[#074740] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            class=" peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-[#074740] peer-focus:dark:text-[#074740] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                             Estado</label>
                     </div>
 
@@ -177,7 +172,7 @@
                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-[#074740] focus:outline-none focus:ring-0 focus:border-[#074740] peer"
                             placeholder=" " required />
                         <label for="demanda"
-                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-[#074740] peer-focus:dark:text-[#074740] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            class=" peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-[#074740] peer-focus:dark:text-[#074740] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                             Demanda</label>
                     </div>
                     <div class="relative z-0 w-full mb-5 group">
@@ -185,7 +180,7 @@
                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-[#074740] focus:outline-none focus:ring-0 focus:border-[#074740] peer"
                             placeholder=" " required />
                         <label for="demandado"
-                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-[#074740] peer-focus:dark:text-[#074740] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            class=" peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-[#074740] peer-focus:dark:text-[#074740] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                             Demandado</label>
                     </div>
                 </div>
@@ -195,13 +190,13 @@
                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-[#074740] focus:outline-none focus:ring-0 focus:border-[#074740] peer"
                             placeholder=" " />
                         <label for="usuario"
-                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-[#074740] peer-focus:dark:text-[#074740] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            class=" peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-[#074740] peer-focus:dark:text-[#074740] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                             Usuario</label>
                     </div>
                 </div>
                 <div class="button text-end">
-                    <button class="bg-[#041316] text-white px-6 py-3 mt-3 ml-auto rounded-lg"
-                        type="submit">Guardar</button>
+                    <button class="bg-[#041316] text-white px-6 py-3 mt-3 ml-auto rounded-lg" type="submit"
+                        [disabled]="!addRadicadoForm.valid">Guardar</button>
                 </div>
             </form>
         </div>
@@ -214,6 +209,54 @@
 
 </div>
 
+<!-- The Modal -->
+<div id="addProcesoModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content rounded-xl">
+        <span class="close" (click)="closeModal('addProcesoModal')">&times;</span>
+        @if(radicadoSeleccionado ; as radicado){
+        <h1 class="mb-5 font-semibold">Agrear Proceso a radicado <span class="font-bold">{{radicado.numero}}</span></h1>
+
+        <div class="p-5">
+            <form [formGroup]="addProcesoRForm" (ngSubmit)="addProcesoSubmit()">
+                <div class="relative z-0 w-40 mb-5 group">
+                    <input type="text" formControlName="fecha" name="fecha" id="fecha"
+                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-[#074740] focus:outline-none focus:ring-0 focus:border-[#074740] peer"
+                    placeholder=" " required [value]="getCurrentDate" />
+                    <label for="fecha"
+                        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-[#074740] peer-focus:dark:text-[#074740] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                        Fecha:</label>
+                </div>
+                <div class="relative z-0 w-40 mb-5 group hidden">
+                    <input type="text" formControlName="radicado" name="radicado" id="radicado"
+                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-[#074740] focus:outline-none focus:ring-0 focus:border-[#074740] peer"
+                    placeholder=" " required />
+                    <label for="radicado"
+                        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-[#074740] peer-focus:dark:text-[#074740] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                        Radicado:</label>
+                </div>
+    
+                <div class="relative z-0 w-full mb-5 group">
+                    <label for="fecha" class="peer-focus:font-medium text-sm text-gray-500 dark:text-gray-400 ">
+                        Observaciones</label>
+                    <textarea formControlName="observaciones" name="observaciones" id="" cols="30" rows="4" required
+                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-[#074740] focus:outline-none focus:ring-0 focus:border-[#074740] peer"></textarea>
+                </div>
+                <div class="button text-end">
+                    <button class="bg-[#041316] text-white px-6 py-3 ml-auto rounded-lg" type="submit" [disabled]="!addProcesoRForm.valid">Guardar</button>
+                </div>
+            </form>
+        </div>
+    }@else {
+        <p class="text-red">
+            Radicado Invalido
+        </p>
+
+    }
+
+    </div>
+
+</div>
 
 
 

@@ -4,6 +4,7 @@ import { IAddRadicado, Radicado } from '../components/shared/models/Radicado';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { RADICADOS_URL, RADICADO_ADD_URL, RADICADO_BY_USER_URL } from '../components/shared/constatns/urls';
+import Toastify from 'toastify-js';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +16,7 @@ export class RadicadosService {
   getRadicados():Observable<any>{
     return this.http.get(RADICADOS_URL);
   }
-  getRadicadosByUser(ced:string):Observable<Radicado[]>{
-    console.log("ruta radicados",RADICADO_BY_USER_URL+ced);
-    
+  getRadicadosByUser(ced:string):Observable<Radicado[]>{    
     return this.http.get<Radicado[]>(RADICADO_BY_USER_URL+ced);
   }
 
@@ -29,16 +28,32 @@ export class RadicadosService {
     return this.http.post<Radicado>(RADICADO_ADD_URL, radicadoAdd).pipe(
       tap({
         next: (radicado) => {
-          console.log("radicado", radicado);
+          Toastify({
+            text: `Proceso agregado con éxito a radicado ${radicado}`,
+            duration: 5000,
+            newWindow: true,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: "right", // `left`, `center` or `right`
+            className: "info",
+            style: {
+              background: "linear-gradient(to right, #00b09b, #96c93d)",
+            }
+          }).showToast();
         },
         error: (errorResponse) => {
           console.log('Error al registrar')
           const error = errorResponse.status;
-          if (error === 200){
-            alert('creado con exito');
-          }else{
-            alert(`error ${errorResponse.status}`)
-          }
+          Toastify({
+            text: `Error ${errorResponse.error}`,
+            duration: 3000,
+            newWindow: true,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: "right", // `left`, `center` or `right`
+            className: "error",
+           
+          }).showToast();
         }
       })
     )

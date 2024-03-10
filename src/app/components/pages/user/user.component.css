@@ -65,3 +65,7 @@
   .has-help:hover  .help{
     display: block;
   }
+
+.proceso.activo{
+  display: block !important; 
+}

@@ -4,6 +4,7 @@ import { User, IUserLogin, IUserRegister } from '../components/shared/models/Use
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import {USER_LOGIN_URL, USER_REGISTER_URL}  from '../components/shared/constatns/urls';
+import Toastify from 'toastify-js';
 
 const USER_KEY = 'User'
 @Injectable({
@@ -11,32 +12,48 @@ const USER_KEY = 'User'
 })
 export class LoginService {
 
-  private userSubject = new BehaviorSubject<User>(this.getUserFromLocalStorage());
-  public userObservable:Observable<User>;
+  //private userSubject = new BehaviorSubject<User>(this.getUserFromLocalStorage());
+  public userObservable!:Observable<User>;
   constructor(private http:HttpClient, private toastrService:ToastrService) {
-    this.userObservable = this.userSubject.asObservable();
+    //this.userObservable = this.userSubject.asObservable();
   }
 
   login(userLogin:IUserLogin):Observable<User>{
     return this.http.post<User>(USER_LOGIN_URL, userLogin).pipe(
       tap({
         next: (user) =>{
-          this.setUserToLocalStorage(user);
-          this.userSubject.next(user);
-          this.toastrService.success(
-            `Welcome to Foodmine ${user.nombre}!`,
-            'Login Successful'
-          )
+         // this.userSubject.next(user);
+          Toastify({
+            text: `login exitoso ${user.nombre}`,
+            duration: 5000,
+            newWindow: true,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: "right", // `left`, `center` or `right`
+            className: "info",
+            style: {
+              background: "linear-gradient(to right, #00b09b, #96c93d)",
+            }
+          }).showToast();
         },
         error: (errorResponse) => {
-          this.toastrService.error(errorResponse.error, 'Login Failed');
+          Toastify({
+            text: `Error ${errorResponse.status} ${errorResponse.error}`,
+            duration: 5000,
+            newWindow: true,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: "right", // `left`, `center` or `right`
+            className: "error",
+          }).showToast();
+          
         }
       })
     );
   }
   logout(){
-    this.userSubject.next(new User());
-    sessionStorage.removeItem(USER_KEY);
+    //this.userSubject.next(new User());
+    //sessionStorage.removeItem(USER_KEY);
     window.location.reload();
   }
 
@@ -56,15 +73,29 @@ export class LoginService {
     return this.http.post<User>(USER_REGISTER_URL, userRegiser).pipe(
       tap({
         next: (user) => {
-          this.userSubject.next(user);
-          this.toastrService.success(
-            `Welcome to the Foodmine ${user.nombre}`,
-            'Register Successful'
-          )
+          Toastify({
+            text: `Usuario registrado con éxito ${user.nombre}`,
+            duration: 5000,
+            newWindow: true,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: "right", // `left`, `center` or `right`
+            className: "info",
+            style: {
+              background: "linear-gradient(to right, #00b09b, #96c93d)",
+            }
+          }).showToast();
         },
         error: (errorResponse) => {
-          this.toastrService.error(errorResponse.error,
-            'Register Failed')
+          Toastify({
+            text: `Error ${errorResponse.status} ${errorResponse.error}`,
+            duration: 5000,
+            newWindow: true,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: "right", // `left`, `center` or `right`
+            className: "error",
+          }).showToast();
         }
       })
     )
