@@ -24,7 +24,11 @@
                 <b class="ml-3 mr-1">Teléfono:</b>{{usuario.telefono}}
                 <b class="ml-3 mr-1">Correo:</b>{{usuario.correo}}
                 <b class="ml-3 mr-1">Dirección:</b>{{usuario.direccion}}
-                <b class="ml-3 mr-1">Abogado:</b>{{usuario.abogado}}
+                <b class="ml-3 mr-1">Abogado:</b>
+                
+                @if(abogado | async ; as ab){
+                    {{ab.nombre}} 
+                    }
             </p>
         </div>
     </div>

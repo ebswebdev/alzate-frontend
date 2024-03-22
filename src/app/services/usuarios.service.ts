@@ -14,7 +14,7 @@ export class UsuariosService {
   getUsuariosList():Observable<any>{
     return this.http.get(USERS_URL);
   }
-  getUsuarioId(ced:string):Observable<User>{
+  getUsuarioId(ced:string):Observable<User>{    
     return this.http.get<User>(USER_BY_ID_URL+ced);
   }
 

@@ -44,6 +44,9 @@ export class UserComponent implements OnInit {
   returnUrl = '';
 
   public Usuario!: Observable<User>;
+  public abogado!: Observable<User>;
+  public Abgd!:User;
+  public cedulaAbogado:string = '';
   public cedula: string = '';
 
   public Radicados$!: Observable<Radicado[]>;
@@ -78,6 +81,9 @@ export class UserComponent implements OnInit {
 
     this.Usuario = this.userService.getUsuarioId(this.cedula);
     this.Radicados$ = this.radicadosService.getRadicadosByUser(this.cedula);
+    this.Usuario.subscribe( (usu) => {
+        this.abogado = this.userService.getUsuarioId(usu.abogado);
+      });
   }
 
   get fc() {
