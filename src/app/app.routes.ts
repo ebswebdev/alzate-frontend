@@ -11,6 +11,7 @@ import { UserComponent } from './components/pages/user/user.component';
 export const routes: Routes = [
     { path: '', redirectTo: 'calculos', pathMatch: 'full' },
     { path: 'calculos', component: CalculosComponent },
+    {path: 'admin', component:HomeComponent},
     { path: 'usuario/:user', component: UserComponent },
     {path: 'usuarios', component:UsuariosComponent},
     {path: 'login', component:LoginComponent},

@@ -70,7 +70,7 @@ export class UserComponent implements OnInit {
       this.cedula = params['user'];
     });
 
-    //this.ProcesosR$ = this.procesoRService.getProcesosR();
+    this.ProcesosR$ = this.procesoRService.getProcesosRByUser(this.cedula);
     this.addRadicadoForm = this.formBuilder.group({
       numero: ['', [Validators.required]],
       estado: ['activo', [Validators.required]],
@@ -137,12 +137,14 @@ export class UserComponent implements OnInit {
     }
   }
 
-  getProcesoR(rad: string) {
-    this.ProcesosR$ = this.procesoRService.getProcesosRByRadicado(rad);
+  estadoR(rad:string){
+    this.radicadosService.putRadicadoEstado(rad);    
   }
+  
   getProces(rad: string) {
     document.getElementById(rad)?.classList.toggle('activo');
   }
+
 
   getCurrentDate(): string {
     const now = new Date();
@@ -159,6 +161,7 @@ export class UserComponent implements OnInit {
       fecha: [this.fechaDefault, [Validators.required]],
       observaciones: ['', [Validators.required]],
       radicado: [this.radicadoSeleccionado.numero, [Validators.required]],
+      usuario:[this.cedula,[Validators.required]]
     });
     this.showModal(modal);
   }
@@ -173,13 +176,16 @@ export class UserComponent implements OnInit {
       fecha: fv.fecha,
       observaciones: fv.observaciones,
       radicado: fv.radicado,
+      usuario: fv.usuario
     };
-
-    this.returnUrl = '/usuario/' + this.cedula;
 
     this.procesoRService.addProcesor(procesor).subscribe((_) => {
       this.closeModal('addProcesoModal');
-      
+      setTimeout(()=>{
+        window.location.reload()
+      }, 1000);
+    }, (_error) => {
+      window.alert('Ocurrió un error al agregar el procesador del radicado');
     });
   }
 }

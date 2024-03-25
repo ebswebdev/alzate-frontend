@@ -66,6 +66,9 @@
     display: block;
   }
 
+.proceso{
+  display: none;
+}
 .proceso.activo{
   display: block !important; 
 }

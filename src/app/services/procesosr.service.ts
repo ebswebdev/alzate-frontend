@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
-import { PROCESOR_ADD_URL, PROCESOR_BY_RADICADO_URL, PROCESOSR_URL } from '../components/shared/constatns/urls';
+import { PROCESOR_ADD_URL, PROCESOR_BY_RADICADO_URL, PROCESOR_BY_USER_URL, PROCESOSR_URL } from '../components/shared/constatns/urls';
 import { IAddProcesoR, ProcesoR } from '../components/shared/models/ProcesoR';
 import Toastify from 'toastify-js';
 
@@ -17,6 +17,10 @@ export class ProcesosrService {
   }
   getProcesosRByRadicado(rad:string):Observable<ProcesoR[]>{    
     return this.http.get<ProcesoR[]>(PROCESOR_BY_RADICADO_URL+rad);
+  }
+
+  getProcesosRByUser(rad:string):Observable<ProcesoR[]>{    
+    return this.http.get<ProcesoR[]>(PROCESOR_BY_USER_URL+rad);
   }
 
   addProcesor(procesorAdd:IAddProcesoR): Observable<ProcesoR>{

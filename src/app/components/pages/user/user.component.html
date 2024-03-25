@@ -56,13 +56,10 @@
                         <p><b>demanda: </b>{{radicado.demanda}}</p>
                         <p><b>demandado: </b>{{radicado.demandado}}</p>
                         <p><b>estado: </b>{{radicado.estado}}</p>
-                        <button (click)="getProcesoR(radicado.numero)"
-                            class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-                            ver proceso
-                        </button> <!--
+
                         <button (click)="getProces(radicado.numero)"  class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
                             ver proceso
-                        </button> -->
+                        </button> 
 
                         @if( ProcesosR$ | async ; as procesos){
                         <div class="proceso" id="{{radicado.numero}}">
@@ -102,7 +99,7 @@
                                 </span>
                             </button>
 
-                            <button [ngStyle]="{'background-color':radicado.estado=='activo'?'transparent':'gray'}"
+                            <button (click)="estadoR(radicado.numero)" [ngStyle]="{'background-color':radicado.estado=='activo'?'transparent':'gray'}"
                                 class=" px-1 py-1  rounded-lg has-help">
                                 @if(radicado.estado=="activo"){
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 256 256"><path fill="red" d="M216 48h-36V36a28 28 0 0 0-28-28h-48a28 28 0 0 0-28 28v12H40a12 12 0 0 0 0 24h4v136a20 20 0 0 0 20 20h128a20 20 0 0 0 20-20V72h4a12 12 0 0 0 0-24M100 36a4 4 0 0 1 4-4h48a4 4 0 0 1 4 4v12h-56Zm88 168H68V72h120Zm-72-100v64a12 12 0 0 1-24 0v-64a12 12 0 0 1 24 0m48 0v64a12 12 0 0 1-24 0v-64a12 12 0 0 1 24 0"/></svg>
@@ -237,6 +234,14 @@
                         Radicado:</label>
                 </div>
     
+                <div class="relative z-0 w-40 mb-5 group hidden">
+                    <input type="text" formControlName="usuario" name="usuario" id="usuario"
+                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-[#074740] focus:outline-none focus:ring-0 focus:border-[#074740] peer"
+                    placeholder=" " required />
+                    <label for="usuario"
+                        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-[#074740] peer-focus:dark:text-[#074740] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                        usuario:</label>
+                </div>
                 <div class="relative z-0 w-full mb-5 group">
                     <label for="fecha" class="peer-focus:font-medium text-sm text-gray-500 dark:text-gray-400 ">
                         Observaciones</label>
